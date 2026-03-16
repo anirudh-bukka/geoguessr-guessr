@@ -1,27 +1,15 @@
-from agents.perception_agent import PerceptionAgent
-from agents.reasoning_agent import ReasoningAgent
+from pipelines.langgraph_pipeline import GeoGuessrPipeline
 
 
 def main():
 
-    image_path = "images/test_image.jpg"
+    pipeline = GeoGuessrPipeline()
 
-    perception = PerceptionAgent()
-    reasoning = ReasoningAgent()
+    image = "test.jpg"
 
-    print("\n🔎 Analyzing image...\n")
+    result = pipeline.run(image)
 
-    clues = perception.analyze(image_path)
-
-    print("CLUES:")
-    print(clues)
-
-    print("\n🧠 Reasoning...\n")
-
-    guess = reasoning.guess_location(clues)
-
-    print("FINAL GUESS:")
-    print(guess)
+    print(result)
 
 
 if __name__ == "__main__":
@@ -34,20 +22,57 @@ if __name__ == "__main__":
 
 
 
-# from pipelines.geoguessr_pipeline import GeoGuessrPipeline
+
+# from agents.perception_agent import PerceptionAgent
+# from agents.reasoning_agent import ReasoningAgent
 
 
 # def main():
 
 #     image_path = "images/test_image.jpg"
 
-#     pipeline = GeoGuessrPipeline()
+#     perception = PerceptionAgent()
+#     reasoning = ReasoningAgent()
 
-#     result = pipeline.run(image_path)
+#     print("\n🔎 Analyzing image...\n")
 
-#     print("\n--- CLUES ---\n")
-#     print(result["clues"])
+#     clues = perception.analyze(image_path)
+
+#     print("CLUES:")
+#     print(clues)
+
+#     print("\n🧠 Reasoning...\n")
+
+#     guess = reasoning.guess_location(clues)
+
+#     print("FINAL GUESS:")
+#     print(guess)
 
 
 # if __name__ == "__main__":
 #     main()
+
+
+
+
+
+
+
+
+# # from pipelines.geoguessr_pipeline import GeoGuessrPipeline
+
+
+# # def main():
+
+# #     image_path = "images/test_image.jpg"
+
+# #     pipeline = GeoGuessrPipeline()
+
+# #     result = pipeline.run(image_path)
+
+# #     print("\n--- CLUES ---\n")
+# #     print(result["clues"])
+
+
+# # if __name__ == "__main__":
+# #     main()
