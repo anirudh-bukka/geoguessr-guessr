@@ -1,3 +1,7 @@
+import os
+
+os.environ.setdefault("KMP_DUPLICATE_LIB_OK", "TRUE")
+
 from pipelines.langgraph_pipeline import GeoGuessrPipeline
 
 
@@ -5,7 +9,8 @@ def main():
 
     pipeline = GeoGuessrPipeline()
 
-    image = "test.jpg"
+    image = "/Users/anirbukk/Documents/utilities/personal-github-repos/geoguessr-guessr/image9.png"
+    # image = "dataset/geoguessr/India/canvas_1629934825.jpg"
 
     result = pipeline.run(image)
 

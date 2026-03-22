@@ -4,7 +4,7 @@ Follow this **exactly in order**.
 
 ---
 
-# 🧠 0. What You’re Setting Up
+# 0. What You’re Setting Up
 
 Your project uses:
 
@@ -17,7 +17,7 @@ Your project uses:
 
 ---
 
-# ⚙️ 1. Install Prerequisites (Fresh Laptop)
+# 1. Install Prerequisites
 
 ## 1.1 Install Python (IMPORTANT)
 
@@ -33,7 +33,7 @@ You need:
 Python 3.10 or 3.11
 ```
 
-👉 If wrong version:
+If wrong version:
 
 Install via:
 
@@ -57,7 +57,7 @@ uv --version
 
 ---
 
-# 📦 2. Clone Your Repo
+# 2. Clone This Repo
 
 ```bash
 git clone <your-repo-url>
@@ -66,7 +66,7 @@ cd geoguessr-guessr
 
 ---
 
-# 🐍 3. Create Virtual Environment
+# 3. Create Virtual Environment
 
 ```bash
 uv venv
@@ -80,9 +80,9 @@ source .venv/bin/activate
 
 ---
 
-# 📚 4. Install Dependencies (IMPORTANT FIX)
+# 4. Install Dependencies (IMPORTANT FIX)
 
-⚠️ DO NOT install everything together (you already saw conflicts).
+DO NOT install everything together (you might see conflicts).
 
 Run **this exact sequence**:
 
@@ -106,21 +106,13 @@ uv add python-dotenv langgraph
 uv add anthropic
 ```
 
----
-
-## ❗ Gemini Fix (Important)
-
-DO NOT use `google-generativeai` (caused your earlier errors).
-
-Use:
-
 ```bash
 uv add google-genai
 ```
 
 ---
 
-# 🔑 5. Setup API Keys
+# 5. Setup API Keys
 
 Create `.env` file:
 
@@ -131,9 +123,16 @@ touch .env
 Add:
 
 ```env
-GOOGLE_API_KEY=your_key_here
+GEMINI_API_KEY=your_key_here
 ANTHROPIC_API_KEY=your_key_here
 HF_TOKEN=your_key_here
+```
+
+Optional model overrides:
+
+```env
+GEMINI_MODEL=gemini-2.5-flash
+ANTHROPIC_MODEL=claude-haiku-4-5-20251001
 ```
 
 ---
@@ -155,7 +154,7 @@ HF_TOKEN=your_key_here
 
 ---
 
-# 📁 6. Setup Dataset
+# 6. Setup Dataset
 
 Create folder:
 
@@ -175,11 +174,11 @@ dataset/geoguessr/
 
 ---
 
-## 🔥 IMPORTANT (Avoid disk issues)
+## Avoid disk issues
 
 If low storage:
 
-👉 Use subset (recommended)
+Use subset (recommended)
 
 ```bash
 mkdir dataset_small
@@ -195,7 +194,7 @@ DATASET_PATH = "dataset_small"
 
 ---
 
-# 🧪 7. Test Dataset Loader
+# 7. Test Dataset Loader
 
 Run:
 
@@ -211,7 +210,7 @@ Expected:
 
 ---
 
-# 🧠 8. Build Vector Index (CLIP + FAISS)
+# 8. Build Vector Index (CLIP + FAISS)
 
 Run:
 
@@ -225,19 +224,19 @@ This will:
 * Generate embeddings using **CLIP**
 * Store in **FAISS**
 
-⏳ Time:
+Time:
 
 * Full dataset → 30–60 mins
 * Small dataset → 5–10 mins
 
 ---
 
-# 🧪 9. Test Full Pipeline
+# 9. Test Full Pipeline
 
 Update `main.py`:
 
 ```python
-image = "dataset/geoguessr/india/sample.jpg"
+image = "<path to a new image in your file system>"
 ```
 
 Then run:
@@ -254,7 +253,7 @@ Country prediction + reasoning
 
 ---
 
-# 📊 10. Run Evaluation
+# 10. Run Evaluation
 
 ```bash
 uv run python evaluation/benchmark.py
@@ -268,7 +267,7 @@ Accuracy: 0.6 - 0.8 (initial)
 
 ---
 
-# 🧹 11. Optional Cleanup (Highly Recommended)
+# 11. Optional Cleanup
 
 Free space:
 
@@ -284,30 +283,30 @@ rm -rf dataset/geoguessr
 
 ---
 
-# 🚨 Common Errors (You WILL Hit These)
+# Common Errors
 
-## ❌ Error: `module google.genai has no attribute configure`
+## Error: `module google.genai has no attribute configure`
 
-✅ Fix:
+Fix:
 
-* You were using wrong SDK
+* I was using wrong SDK, if the same happens with you:
 * Use `google-genai` + `genai.Client(...)`
 
 ---
 
-## ❌ Error: `model not found gemini-1.5-flash`
+## Error: `model not found gemini-1.5-flash`
 
-✅ Fix:
+Fix:
 
 Use:
 
 ```python
-model="gemini-2.0-flash"
+model="gemini-2.5-flash"
 ```
 
 ---
 
-## ❌ FAISS import error (Mac M1)
+## FAISS import error (Mac M1)
 
 ```bash
 uv add faiss-cpu
@@ -315,7 +314,7 @@ uv add faiss-cpu
 
 ---
 
-## ❌ Torch slow / crash
+## Torch slow / crash
 
 Force CPU:
 
@@ -325,23 +324,23 @@ device = "cpu"
 
 ---
 
-# 🏁 Final Checklist
+# Final Checklist
 
 Before running:
 
 ```bash
-✅ Python 3.11
-✅ uv installed
-✅ .venv activated
-✅ dependencies installed
-✅ .env configured
-✅ dataset placed correctly
-✅ index built
+Python 3.11
+uv installed
+.venv activated
+dependencies installed
+.env configured
+dataset placed correctly
+index built
 ```
 
 ---
 
-# 💡 What You’ve Built (Important for Interviews)
+# What You’ve Built (Important for Interviews)
 
 You now have:
 
@@ -349,22 +348,5 @@ You now have:
 * Vector search (FAISS)
 * Multimodal reasoning (Gemini)
 * LLM reasoning (Claude)
-* Agent pipeline (LangGraph-style)
-
-This is **real-world AI system design**, not toy code.
-
+* Agent pipeline (LangGraph-style, but it's not LangGraph)
 ---
-
-# If you want next:
-
-I can help you upgrade this into:
-
-👉 **FAANG-level system**
-with:
-
-* geospatial priors
-* probabilistic inference
-* map-based reasoning
-* hybrid ML + LLM
-
-Just say the word 👍
