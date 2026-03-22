@@ -24,5 +24,6 @@ __pycache__/
 
 .env
 
+# Local-only docs / notes
 prereqs.md
 samplerun.md
