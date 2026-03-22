@@ -23,7 +23,3 @@ __pycache__/
 .DS_Store
 
 .env
-
-# Local-only docs / notes
-prereqs.md
-samplerun.md
